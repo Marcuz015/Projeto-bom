@@ -1,56 +1,63 @@
-import React from 'react';
-import {SafeAreaView, StyleSheet, TextInput, Image, View} from 'react-native';
+import React, { useState } from 'react';
+import { View, TextInput, Button, StyleSheet, Alert, Text } from 'react-native';
 
-export default function Home() {
-  const [text, onChangeText] = React.useState('');
-  const [number, onChangeNumber] = React.useState('');
+export default function LoginScreen() {
+  const [username, setUsername] = useState('');
+  const [password, setPassword] = useState('');
+
+  const handleLogin = () => {
+    if (username ==='' || password === '') {
+      Alert.alert('Preencha todos os campos');
+      return;
+    }
+
+    console.log('Usuário:', username);
+    console.log('Senha:', password);
+  };
+
   return (
-    <SafeAreaView style={styles.fundo}>
-      <View>
-      <Image
-            source={require('./logo.jpeg')}
-            style={styles.Image}
-          />
-      </View>
-      <View style={styles.texto}>
-        <TextInput
-        inlineImageLeft="search1"
-        style={styles.input}
-        onChangeText={onChangeText}
-        value={text}
-        placeholder="Nome de usuario"
-        keyboardType="email-address"
-        />
-        <TextInput
-        style={styles.input}
-        onChangeText={onChangeNumber}
-        value={number}
+    <View style={styles.fundo}>
+      <Text style={styles.texto}>
+      Welcome to the music's love
+      </Text>
+      <TextInput
+        style={styles.campos}
+        placeholder="Nome de usuário"
+        value={username}
+        onChangeText={setUsername}
+      />
+      <TextInput
+        style={styles.campos}
         placeholder="Senha"
-        keyboardType="numeric"
-      /> </View>
-      
-    </SafeAreaView>
+        secureTextEntry
+        value={password}
+        onChangeText={setPassword}
+      />
+      <Button title="Logar" onPress={handleLogin} />
+    </View>
   );
 }
 
 const styles = StyleSheet.create({
-  input: {
+  fundo: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+    backgroundColor: "#000000",
+  },
+  campos: {
+    width: "80%",
     height: 40,
-    margin: 12,
     borderWidth: 1,
-    padding: 10,
-    backgroundColor: "#4F4F4F",
-    color:"white",
-  },
-  Image:{
-    height:63,
-  },
-  fundo:{
-    backgroundColor:"black",
-    alignContent:"center",
+    borderColor: "#6959CD",
+    borderRadius: 5,
+    marginBottom: 10,
+    paddingLeft: 10,
   },
   texto:{
-    textAlign:"center",
-    
+    color:"#FFFFFF",
+    fontSize: 42,
+    textAlign: "center",
+    alignItems: "center"
   }
 });
